@@ -6,7 +6,7 @@ from typing import Optional, Union, cast, Set
 
 
 name_length_limits = 5, 50
-file_content_length_limits = 100, 100 * 10**6
+file_content_length_limits = 100, 100 * 10 ** 6
 
 
 def generate_random_secure(length: int) -> bytes:
@@ -14,10 +14,12 @@ def generate_random_secure(length: int) -> bytes:
 
 
 def generate_random(length: int) -> str:
-    return ''.join(random.choices(string.ascii_letters, k=length))
+    return "".join(random.choices(string.ascii_letters, k=length))
 
 
-def generate_random_file(folder_path: str, name: Union[int, str, None], content_length: Optional[int]) -> None:
+def generate_random_file(
+    folder_path: str, name: Union[int, str, None], content_length: Optional[int]
+) -> None:
     """
     This will overwrite file if it exists
     """
@@ -41,7 +43,9 @@ def generate_random_file(folder_path: str, name: Union[int, str, None], content_
         file.write(content)
 
 
-def generate_random_files(folder_path: str, nbr_files: int, content_length: Optional[int]) -> None:
+def generate_random_files(
+    folder_path: str, nbr_files: int, content_length: Optional[int]
+) -> None:
     names: Set[str] = set()
 
     for i in range(nbr_files):
@@ -52,6 +56,3 @@ def generate_random_files(folder_path: str, nbr_files: int, content_length: Opti
 
         names.add(name)
         generate_random_file(folder_path, name, content_length)
-
-
-
