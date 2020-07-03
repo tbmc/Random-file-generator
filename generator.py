@@ -2,7 +2,7 @@ import os
 import secrets
 import random
 import string
-from typing import Optional, Union, cast, Set
+from typing import Optional, Union, cast, Set, Tuple
 
 
 name_length_limits = 5, 50
@@ -18,7 +18,7 @@ def generate_random(length: int) -> str:
 
 
 def generate_random_file(
-    folder_path: str, name: Union[int, str, None], content_length: Optional[int]
+    folder_path: str, name: Union[int, str, None], content_length: Union[None, int, Tuple[int, int]]
 ) -> None:
     """
     This will overwrite file if it exists
@@ -33,7 +33,11 @@ def generate_random_file(
             name_length = random.randint(*name_length_limits)
             name = generate_random(name_length)
 
-    if not content_length:
+    if content_length:
+        if type(content_length) is tuple:
+            content_length = cast(Tuple[int, int], content_length)
+            content_length = random.randint(*content_length)
+    else:
         content_length = random.randint(*file_content_length_limits)
 
     content = generate_random_secure(content_length)
@@ -44,7 +48,7 @@ def generate_random_file(
 
 
 def generate_random_files(
-    folder_path: str, nbr_files: int, content_length: Optional[int]
+    folder_path: str, nbr_files: int, content_length: Union[None, int, Tuple[int, int]]
 ) -> None:
     names: Set[str] = set()
 
