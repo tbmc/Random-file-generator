@@ -60,3 +60,4 @@ def generate_random_files(
 
         names.add(name)
         generate_random_file(folder_path, name, content_length)
+
